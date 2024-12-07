@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, TouchableOpacityProps, StyleSheet } from "react-native";
 
 export default function TabsLayout() {
   return (
@@ -34,7 +34,7 @@ export default function TabsLayout() {
             <FontAwesome name="qrcode" size={size} color="#fff" />
           ),
           tabBarButton: (props) => (
-            <TouchableOpacity {...props} style={styles.qrButton}>
+            <TouchableOpacity {...(props as TouchableOpacityProps)} style={styles.qrButton}>
               <FontAwesome name="qrcode" size={30} color="#fff" />
             </TouchableOpacity>
           ),
