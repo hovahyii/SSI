@@ -1,12 +1,14 @@
+// CreateWallet.tsx
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
-// Correct the path here
-import { createUserWallet } from "../../scripts/create-wallet";  // Use relative path
+import { createUserWallet } from "../../scripts/create-wallet";
+import { useRouter } from "expo-router";
 
 const CreateWallet: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [ic, setIc] = useState<string>("");
+  const router = useRouter();
 
   const handleRegister = async (): Promise<void> => {
     if (!name || !email || !ic) {
@@ -16,7 +18,20 @@ const CreateWallet: React.FC = () => {
 
     try {
       const result = await createUserWallet(name, email, ic);
-      Alert.alert("Success", `Wallet created successfully: ${JSON.stringify(result)}`);
+      
+      const walletAddress = result?.walletAddress; // Extract wallet address
+
+      //console.log(walletAddress);
+      
+      // Use an object to pass query parameters
+      router.push({
+        pathname: '/profile', // Adjust this to match your actual route
+        params: { 
+          walletAddress: walletAddress || '' 
+        }
+      });
+
+      Alert.alert("Success", "Wallet created successfully.");
     } catch (error: any) {
       Alert.alert("Error", `Failed to create wallet: ${error.message}`);
     }
