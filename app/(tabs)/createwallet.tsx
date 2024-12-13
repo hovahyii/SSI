@@ -19,17 +19,23 @@ const CreateWallet: React.FC = () => {
     try {
       const result = await createUserWallet(name, email, ic);
       
+      
       const walletAddress = result?.walletAddress; // Extract wallet address
 
-      //console.log(walletAddress);
+      //console.log(walletAddress, name, email,ic);
       
-      // Use an object to pass query parameters
+      // Combine all the parameters into a single object
       router.push({
         pathname: '/profile', // Adjust this to match your actual route
         params: { 
-          walletAddress: walletAddress || '' 
+          walletAddress: walletAddress || '', 
+          name: name || '', 
+          email: email || '' 
         }
       });
+
+      
+      
 
       Alert.alert("Success", "Wallet created successfully.");
     } catch (error: any) {
@@ -78,7 +84,10 @@ const CreateWallet: React.FC = () => {
         <Text className="text-white text-lg font-semibold">Register</Text>
       </TouchableOpacity>
     </View>
+    
   );
+
+  
 };
 
 export default CreateWallet;

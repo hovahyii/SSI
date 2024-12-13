@@ -1,6 +1,7 @@
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity, TouchableOpacityProps, StyleSheet } from "react-native";
+import React from "react";
 
 export default function TabsLayout() {
   return (
@@ -26,7 +27,7 @@ export default function TabsLayout() {
       />
 
       <Tabs.Screen
-        name="qrcode"
+        name="scan"
         options={{
           headerShown: false, // Hide the header for QR Scanner
           title: "QR Scanner",

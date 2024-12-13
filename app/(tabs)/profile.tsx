@@ -4,8 +4,11 @@ import { useLocalSearchParams } from "expo-router";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { Copy } from "lucide-react-native";
 
-const ProfileScreen: React.FC = () => {
+
+const Profile: React.FC = () => {
   const { walletAddress } = useLocalSearchParams<{ walletAddress?: string }>();
+  const { name } = useLocalSearchParams<{ name?: string }>();
+  const { email } = useLocalSearchParams<{ email?: string }>();
 
   // Function to copy wallet address to clipboard
   const copyToClipboard = () => {
@@ -28,11 +31,27 @@ const ProfileScreen: React.FC = () => {
         className="w-32 h-32 rounded-full mb-6"
       />
 
+      <Text className="text-lg mb-2">Name:</Text>
+      
+      <View className="flex-row items-center justify-center">
+        <Text className="text-gray-600">
+          {name || "Wallet not created"}
+        </Text>
+        </View>
+
+        <Text className="text-lg mb-2">Email:</Text>
+      
+      <View className="flex-row items-center justify-center">
+        <Text className="text-gray-600">
+          {email || "Wallet not created"}
+        </Text>
+        </View>
+
       <Text className="text-lg mb-2">My Wallet Address:</Text>
       
       <View className="flex-row items-center justify-center">
         <Text className="text-gray-600">
-          {walletAddress || "Wallet Address Not Available"}
+          {walletAddress || "Wallet not created"}
         </Text>
         <TouchableOpacity onPress={copyToClipboard} className="ml-2">
           <Copy color="gray" size={20} />
@@ -42,4 +61,4 @@ const ProfileScreen: React.FC = () => {
   );
 };
 
-export default ProfileScreen;
+export default Profile;
