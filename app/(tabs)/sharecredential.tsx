@@ -41,12 +41,12 @@ const ShareCredential = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Select which detail to share</Text>
 
-      {/* Render Image */}
+      {/* Render Image
       {parsedCertificateImageFile ? (
         <Image source={parsedCertificateImageFile} style={styles.image} />
       ) : (
         <Text style={styles.noImageText}>No Image Available</Text>
-      )}
+      )} */}
 
       {/* Name Switch */}
       <View style={styles.item}>
