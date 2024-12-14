@@ -8,6 +8,8 @@ const ShareCredential = () => {
   const [name, setName] = useState(false);
   const [ic, setIc] = useState(false);
   const [email, setEmail] = useState(false);
+  const [health, setHealth] = useState(false);
+  const [certificateID, setcertificateID] = useState(false);
 
   // Retrieve params from the navigation or local search params
   const { createdAt, certificateImageFile } = useLocalSearchParams<{
@@ -26,9 +28,12 @@ const ShareCredential = () => {
 
     
     const selectedDetails = [];
+    if (certificateID) selectedDetails.push("certificateID");
     if (name) selectedDetails.push("Name");
     if (ic) selectedDetails.push("IC");
     if (email) selectedDetails.push("Email");
+    if (health) selectedDetails.push("Health Status");
+    
 
     if (selectedDetails.length === 0) {
       Alert.alert("No Details Selected", "Please select at least one detail.");
@@ -39,6 +44,8 @@ const ShareCredential = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>MySejahtera Health Credential</Text>
+
       <Text style={styles.title}>Select which detail to share</Text>
 
       {/* Render Image
@@ -47,6 +54,13 @@ const ShareCredential = () => {
       ) : (
         <Text style={styles.noImageText}>No Image Available</Text>
       )} */}
+
+      {/* Certificate ID Switch */}
+      <View style={styles.item}>
+        <Switch value={certificateID} onValueChange={setcertificateID} />
+        <Text style={styles.label}>Certificate ID</Text>
+        <Text style={styles.label}>{certificateID}</Text>
+      </View>
 
       {/* Name Switch */}
       <View style={styles.item}>
@@ -68,6 +82,15 @@ const ShareCredential = () => {
         <Text style={styles.label}>Email</Text>
         <Text style={styles.label}>{email}</Text>
       </View>
+
+      {/* Health status Switch */}
+      <View style={styles.item}>
+        <Switch value={health} onValueChange={setHealth} />
+        <Text style={styles.label}>Health Status</Text>
+        <Text style={styles.label}>{email}</Text>
+      </View>
+
+      
 
       {/* Continue Button */}
       <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>

@@ -45,7 +45,7 @@ const CreateWallet: React.FC = () => {
 
   return (
     <View className="flex-1 bg-white p-4">
-      <Text className="text-2xl font-bold mb-4">Register</Text>
+      
 
       {/* Name Input */}
       <Text className="text-lg mb-2">Name</Text>

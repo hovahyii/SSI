@@ -51,6 +51,46 @@ export default function TabsLayout() {
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="createwallet"
+        options={{
+          title: "Create Wallet",
+         
+        }}
+      />
+
+      <Tabs.Screen
+        name="sharecredential"
+        options={{
+          title: "Share Credential",
+         
+        }}
+      />
+
+      <Tabs.Screen
+        name="viewcredential"
+        options={{
+          title: "View Credential",
+          
+        }}
+      />
+
+      <Tabs.Screen
+        name="qr"
+        options={{
+          title: "QR",
+          
+        }}
+      />
+
+      <Tabs.Screen
+        name="scan2"
+        options={{
+          title: "QR scan",
+          
+        }}
+      />
     </Tabs>
   );
 }

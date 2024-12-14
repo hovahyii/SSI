@@ -8,7 +8,7 @@ import {
   StyleSheet,
   ImageSourcePropType,
 } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import ShareCredential from "./sharecredential"; // Ensure ShareCredential is properly defined
 
 const ViewCredential: React.FC = () => {
@@ -28,20 +28,22 @@ const ViewCredential: React.FC = () => {
     <View style={styles.container}>
       
 
-      {/* Render Image */}
+      {/* Render Image
       {parsedCertificateImageFile ? (
         <Image source={parsedCertificateImageFile} style={styles.image} />
       ) : (
         <Text style={styles.noImageText}>No Image Available</Text>
-      )}
+      )} */}
 
       {/* Share Button */}
-      <TouchableOpacity style={styles.shareButton} onPress={ShareCredential}>
-      <Text style={styles.title}>Credential</Text>
-      <Text style={styles.info}>Issued by MyGov</Text>
-      <Text style={styles.info}>Created At: {createdAt}</Text>
-        <Text style={styles.shareText} onPress={ShareCredential}>Share Credential</Text>
-      </TouchableOpacity>
+      
+      <Text style={styles.title}>MySejahtera Health Credential</Text>
+<Text style={styles.info}>Issued by MyGov</Text>
+{/* <Text style={styles.info}>Created At: {createdAt}</Text> */}
+
+<Link href="/sharecredential" style={styles.shareButton}>
+        <Text style={styles.shareText}>Share Credential</Text>
+      </Link>
     </View>
   );
 };
