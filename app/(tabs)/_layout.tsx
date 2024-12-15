@@ -1,3 +1,4 @@
+import React from "react";
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity, TouchableOpacityProps, StyleSheet } from "react-native";
@@ -28,18 +29,13 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="qrcode"
         options={{
-          headerShown: false, // Hide the header for QR Scanner
           title: "QR Scanner",
-          tabBarIcon: ({ size }) => (
-            <FontAwesome name="qrcode" size={size} color="#fff" />
-          ),
-          tabBarButton: (props) => (
-            <TouchableOpacity {...(props as TouchableOpacityProps)} style={styles.qrButton}>
-              <FontAwesome name="qrcode" size={30} color="#fff" />
-            </TouchableOpacity>
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="qrcode" size={size} color={color} />
           ),
         }}
       />
+
 
       <Tabs.Screen
         name="profile"

@@ -1,42 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
-import { BarCodeScanner } from "expo-barcode-scanner";
+import { Text, View, StyleSheet, Button } from "react-native";
+import { CameraView, Camera } from "expo-camera";
 
-const { width } = Dimensions.get("window");
-const SCAN_SIZE = width * 0.6; // 60% of screen width
-
-export default function QRCodeScreen() {
-  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+export default function App() {
+  const [hasPermission, setHasPermission] = useState(null);
+  const [scanned, setScanned] = useState(false);
 
   useEffect(() => {
-    const getPermission = async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
+    const getCameraPermissions = async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
     };
-    getPermission();
+
+    getCameraPermissions();
   }, []);
 
-  if (hasPermission === null) {
-    return <View style={{ flex: 1, backgroundColor: "#000" }} />;
-  }
+  const handleBarcodeScanned = ({ type, data }) => {
+    setScanned(true);
+    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+  };
 
+  if (hasPermission === null) {
+    return <Text>Requesting for camera permission</Text>;
+  }
   if (hasPermission === false) {
-    return <View style={{ flex: 1, backgroundColor: "#000" }} />;
+    return <Text>No access to camera</Text>;
   }
 
   return (
     <View style={styles.container}>
-      <BarCodeScanner
-        onBarCodeScanned={() => {
-          // Handle scanned data if needed
+      <CameraView
+        onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
+        barcodeScannerSettings={{
+          barcodeTypes: ["qr", "pdf417"],
         }}
         style={StyleSheet.absoluteFillObject}
       />
-
-      {/* Overlay */}
-      <View style={styles.overlay}>
-        <View style={styles.scanArea} />
-      </View>
+      {scanned && (
+        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
+      )}
     </View>
   );
 }
@@ -44,19 +46,7 @@ export default function QRCodeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: "center",
+    flexDirection: "column",
     justifyContent: "center",
-  },
-  scanArea: {
-    width: SCAN_SIZE,
-    height: SCAN_SIZE,
-    borderWidth: 4,
-    borderColor: "#fff",
-    borderRadius: 10,
-    backgroundColor: "transparent",
   },
 });
