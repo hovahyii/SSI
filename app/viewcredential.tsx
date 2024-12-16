@@ -18,11 +18,6 @@ const ViewCredential: React.FC = () => {
     certificateImageFile?: string; // Pass as a stringified URI or object
   }>();
 
-  // Parse the image source if provided
-  const parsedCertificateImageFile: ImageSourcePropType | null =
-    certificateImageFile
-      ? { uri: certificateImageFile } // Assuming it's passed as a URI
-      : null;
 
   return (
     <View style={styles.container}>

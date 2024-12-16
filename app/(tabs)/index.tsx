@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+import { useRouter, useFocusEffect } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ViewCredential from "./../viewcredential";
 
@@ -9,31 +9,44 @@ const HomeScreen: React.FC = () => {
   const router = useRouter();
   const [walletCreated, setWalletCreated] = useState<boolean>(false);
 
-  // Check wallet validity from AsyncStorage
-  useEffect(() => {
-    const checkWalletStatus = async () => {
-      try {
-        const walletStatus = await AsyncStorage.getItem("walletCreated");
-        const walletAddress = await AsyncStorage.getItem("walletAddress");
-        const name = await AsyncStorage.getItem("name");
-        const email = await AsyncStorage.getItem("email");
+  // Function to check wallet validity from AsyncStorage
+  const checkWalletStatus = async () => {
+    try {
+      const walletStatus = await AsyncStorage.getItem("walletCreated");
+      const walletAddress = await AsyncStorage.getItem("walletAddress");
+      const name = await AsyncStorage.getItem("name");
+      const email = await AsyncStorage.getItem("email");
 
-        // Verify all necessary fields
-        if (walletStatus === "true" && walletAddress && name && email) {
-          setWalletCreated(true);
-        } else {
-          // Reset if wallet is invalid
-          await AsyncStorage.removeItem("walletCreated");
-          setWalletCreated(false);
-        }
-      } catch (error) {
-        console.error("Error checking wallet status:", error);
+      // Check if wallet data is valid
+      if (walletStatus === "true" && walletAddress && name && email) {
+        setWalletCreated(true);
+      } else {
+        // Reset if wallet data is invalid
+        await AsyncStorage.removeItem("walletCreated");
         setWalletCreated(false);
       }
-    };
+    } catch (error) {
+      console.error("Error checking wallet status:", error);
+      setWalletCreated(false);
+    }
+  };
 
-    checkWalletStatus();
-  }, []);
+  // Check wallet status on navigation back to HomeScreen
+  useFocusEffect(
+    useCallback(() => {
+      checkWalletStatus();
+    }, [])
+  );
+
+  // Function to store wallet status as created
+  const storeWalletStatus = async () => {
+    try {
+      await AsyncStorage.setItem("walletCreated", "true");
+      router.push("/createwallet"); // Navigate to create wallet page
+    } catch (error) {
+      console.error("Error saving wallet status:", error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -50,13 +63,8 @@ const HomeScreen: React.FC = () => {
             <Text style={styles.title}>Create a Wallet</Text>
           </View>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={async () => {
-              await AsyncStorage.setItem("walletCreated", "true");
-              router.push("/createwallet");
-            }}
-          >
+          {/* Start Button */}
+          <TouchableOpacity style={styles.button} onPress={storeWalletStatus}>
             <Text style={styles.buttonText}>Start</Text>
           </TouchableOpacity>
         </>
