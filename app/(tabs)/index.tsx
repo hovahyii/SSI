@@ -1,5 +1,6 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Link } from 'expo-router';
 
 const HomeScreen = ({ navigation }: { navigation: any }) => {
   return (
@@ -19,3 +20,5 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 };
 
 export default HomeScreen;
+
+

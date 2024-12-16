@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Button } from "react-native";
 import { CameraView, Camera } from "expo-camera";
 
 export default function App() {
-  const [hasPermission, setHasPermission] = useState(null);
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function App() {
     getCameraPermissions();
   }, []);
 
-  const handleBarcodeScanned = ({ type, data }) => {
+  const handleBarcodeScanned = ({ type, data }: { type: string; data: string }) => {
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };

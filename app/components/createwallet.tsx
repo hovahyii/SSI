@@ -1,12 +1,14 @@
+// CreateWallet.tsx
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
-// Correct the path here
-import { createUserWallet } from "../../scripts/create-wallet";  // Use relative path
+import { createUserWallet } from "../../scripts/create-wallet";
+import { useRouter } from "expo-router";
 
 const CreateWallet: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [ic, setIc] = useState<string>("");
+  const router = useRouter();
 
   const handleRegister = async (): Promise<void> => {
     if (!name || !email || !ic) {
@@ -16,7 +18,26 @@ const CreateWallet: React.FC = () => {
 
     try {
       const result = await createUserWallet(name, email, ic);
-      Alert.alert("Success", `Wallet created successfully: ${JSON.stringify(result)}`);
+      
+      
+      const walletAddress = result?.walletAddress; // Extract wallet address
+
+      //console.log(walletAddress, name, email,ic);
+      
+      // Combine all the parameters into a single object
+      router.push({
+        pathname: '/profile', // Adjust this to match your actual route
+        params: { 
+          walletAddress: walletAddress || '', 
+          name: name || '', 
+          email: email || '' 
+        }
+      });
+
+      
+      
+
+      Alert.alert("Success", "Wallet created successfully.");
     } catch (error: any) {
       Alert.alert("Error", `Failed to create wallet: ${error.message}`);
     }
@@ -24,7 +45,7 @@ const CreateWallet: React.FC = () => {
 
   return (
     <View className="flex-1 bg-white p-4">
-      <Text className="text-2xl font-bold mb-4">Register</Text>
+      
 
       {/* Name Input */}
       <Text className="text-lg mb-2">Name</Text>
@@ -63,7 +84,10 @@ const CreateWallet: React.FC = () => {
         <Text className="text-white text-lg font-semibold">Register</Text>
       </TouchableOpacity>
     </View>
+    
   );
+
+  
 };
 
 export default CreateWallet;

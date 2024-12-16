@@ -26,15 +26,15 @@ export default function TabsLayout() {
         }}
       />
 
-      <Tabs.Screen
-        name="qrcode"
-        options={{
-          title: "QR Scanner",
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="qrcode" size={size} color={color} />
-          ),
-        }}
-      />
+    <Tabs.Screen
+      name="qrcode"
+      options={{
+        title: "QR Scanner",
+        tabBarIcon: ({ color, size }) => (
+          <FontAwesome name="qrcode" size={size} color={color} />
+        ),
+      }}
+    />
 
 
       <Tabs.Screen
