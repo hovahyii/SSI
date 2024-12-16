@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "jsx": "react",
     "strict": true,
     "esModuleInterop": true,
+    "jsx": "react-native", // Enable JSX for React Native
+    "moduleResolution": "node",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [

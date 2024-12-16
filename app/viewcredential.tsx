@@ -1,4 +1,4 @@
-import { createUserWallet } from "@/scripts/create-wallet";
+import { createUserWallet } from "../scripts/create-wallet";
 import React from "react";
 import {
   View,
@@ -26,22 +26,16 @@ const ViewCredential: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      
+      {/* Title Section */}
+      <Text style={styles.mainTitle}>View Credential</Text>
+      <View style={styles.separator} />
 
-      {/* Render Image
-      {parsedCertificateImageFile ? (
-        <Image source={parsedCertificateImageFile} style={styles.image} />
-      ) : (
-        <Text style={styles.noImageText}>No Image Available</Text>
-      )} */}
+      {/* Credential Section */}
+      <Text style={styles.title}>MySejahtera Health Credential</Text>
+      <Text style={styles.info}>Issued by MyGov</Text>
 
       {/* Share Button */}
-      
-      <Text style={styles.title}>MySejahtera Health Credential</Text>
-<Text style={styles.info}>Issued by MyGov</Text>
-{/* <Text style={styles.info}>Created At: {createdAt}</Text> */}
-
-<Link href="/sharecredential" style={styles.shareButton}>
+      <Link href="/sharecredential" style={styles.shareButton}>
         <Text style={styles.shareText}>Share Credential</Text>
       </Link>
     </View>
@@ -50,31 +44,34 @@ const ViewCredential: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     flex: 1,
     padding: 20,
-    backgroundColor: "#fff",
+  },
+  mainTitle: {
+    fontSize: 26,
+    fontWeight: "bold",
+    textAlign: "left",
+    marginTop: 20,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: "#ccc",
+    marginVertical: 20,
   },
   title: {
     fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: 10,
+    textAlign: "left",
   },
   info: {
     fontSize: 16,
-    marginBottom: 10,
-  },
-  image: {
-    width: 200,
-    height: 200,
-    marginVertical: 20,
-  },
-  noImageText: {
-    fontSize: 16,
-    color: "#888",
-    marginTop: 20,
+    marginBottom: 20,
+    textAlign: "left",
   },
   shareButton: {
-    marginTop: 20,
+    marginTop: 10,
     backgroundColor: "#28a745",
     padding: 15,
     borderRadius: 8,

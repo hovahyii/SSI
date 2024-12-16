@@ -33,15 +33,6 @@ export default function RootLayout() {
         {/* Tabs navigation for the main app */}
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
-        {/* Create Wallet Screen */}
-        <Stack.Screen
-          name="createwallet"
-          options={{
-            title: "Create Wallet",
-            headerShown: true, // Show header for this screen
-          }}
-        />
-
         {/* Catch-all route for undefined pages */}
         <Stack.Screen name="+not-found" options={{ title: "Page Not Found" }} />
       </Stack>
